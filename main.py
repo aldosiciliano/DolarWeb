@@ -3,7 +3,7 @@ from api_service import get_dolar_blue
 from datetime import datetime
 
 app = Flask(__name__)
-
+#!!!
 @app.route('/')
 def home():
     data = get_dolar_blue()
