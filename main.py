@@ -1,15 +1,11 @@
-from flask import Flask, render_template, make_response
+from flask import Flask, render_template, make_response, request, jsonify
 from api_service import get_dolar_blue
 from datetime import datetime
-import time
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    # Agregamos timestamp para evitar cache
-    timestamp = int(time.time())
-    
     data = get_dolar_blue()
     if data:
         compra = data['compra']
@@ -24,19 +20,24 @@ def home():
         venta = "N/A"
         fecha = "No disponible"
     
+    # Si es una petición AJAX, devolver JSON
+    if request.args.get('ajax'):
+        return jsonify({
+            'compra': compra,
+            'venta': venta,
+            'fecha': fecha
+        })
+    
     response = make_response(render_template('index.html', 
                                            compra=compra, 
                                            venta=venta, 
-                                           fecha=fecha,
-                                           timestamp=timestamp))
+                                           fecha=fecha))
     
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
     
     return response
-
-app.debug = False
 
 if __name__ == '__main__':
     app.run()

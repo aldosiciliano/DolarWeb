@@ -4,24 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotización Dólar Blue</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script>
-        // Recargar la página cada 60 segundos
-        setInterval(function() {
-            window.location.href = '/?t=' + Date.now();
-        }, 60000);
+        function actualizarDatos() {
+            fetch('/?ajax=1&t=' + Date.now())
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('compra').textContent = '$' + data.compra;
+                    document.getElementById('venta').textContent = '$' + data.venta;
+                    document.getElementById('fecha').textContent = 'Última actualización: ' + data.fecha;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Actualizar cada 60 segundos
+        setInterval(actualizarDatos, 60000);
     </script>
 </head>
 <body>
     <div class="container">
         <h1>Cotización del Dólar Blue</h1>
         <div class="rate">
-            <span class="label">Compra:</span> ${{ compra }}
+            <span class="label">Compra:</span> 
+            <span id="compra">${{ compra }}</span>
         </div>
         <div class="rate">
-            <span class="label">Venta:</span> ${{ venta }}
+            <span class="label">Venta:</span> 
+            <span id="venta">${{ venta }}</span>
         </div>
-        <div class="fecha">
+        <div class="fecha" id="fecha">
             Última actualización: {{ fecha }}
         </div>
     </div>
