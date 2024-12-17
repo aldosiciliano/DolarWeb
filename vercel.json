@@ -11,10 +11,18 @@
             "src": "/(.*)",
             "dest": "main.py",
             "headers": {
-                "cache-control": "no-cache, no-store, must-revalidate",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET",
+                "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept",
+                "cache-control": "s-maxage=0, stale-while-revalidate=0, no-cache, no-store, must-revalidate",
                 "pragma": "no-cache",
                 "expires": "0"
             }
         }
-    ]
+    ],
+    "functions": {
+        "main.py": {
+            "maxDuration": 10
+        }
+    }
 } 
