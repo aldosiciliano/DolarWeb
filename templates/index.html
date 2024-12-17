@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización Dólar Blue</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cotización del Dólar Blue</h1>
+        <div class="rate">
+            <span class="label">Compra:</span> ${{ compra }}
+        </div>
+        <div class="rate">
+            <span class="label">Venta:</span> ${{ venta }}
+        </div>
+        <div class="fecha">
+            Última actualización: {{ fecha }}
+        </div>
+    </div>
+</body>
+</html>
