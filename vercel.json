@@ -3,7 +3,10 @@
     "builds": [
         {
             "src": "main.py",
-            "use": "@vercel/python"
+            "use": "@vercel/python",
+            "config": {
+                "maxDuration": 10
+            }
         }
     ],
     "routes": [
@@ -19,10 +22,5 @@
                 "expires": "0"
             }
         }
-    ],
-    "functions": {
-        "main.py": {
-            "maxDuration": 10
-        }
-    }
+    ]
 } 
