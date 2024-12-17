@@ -9,7 +9,12 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "main.py"
+            "dest": "main.py",
+            "headers": {
+                "cache-control": "no-cache, no-store, must-revalidate",
+                "pragma": "no-cache",
+                "expires": "0"
+            }
         }
     ]
 } 

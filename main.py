@@ -1,9 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
 from api_service import get_dolar_blue
 from datetime import datetime
 
 app = Flask(__name__)
-#!!!
+
 @app.route('/')
 def home():
     data = get_dolar_blue()
@@ -20,7 +20,13 @@ def home():
         venta = "N/A"
         fecha = "No disponible"
     
-    return render_template('index.html', compra=compra, venta=venta, fecha=fecha)
+    # Crear respuesta y agregar headers para evitar cache
+    response = make_response(render_template('index.html', compra=compra, venta=venta, fecha=fecha))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    
+    return response
 
 app.debug = False
 
