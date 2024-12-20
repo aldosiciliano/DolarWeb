@@ -3,38 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotización Dólar Blue</title>
+    <title>Cotizaciones de Dólar</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="grid-container">
+            <!-- Dólar Blue -->
+            <div class="card">
+                <h2>DÓLAR BLUE</h2>
+                <div class="rates">
+                    <div class="rate-column">
+                        <span class="label">Compra</span>
+                        <span class="value" data-tipo="Dólar Blue">${{ cotizaciones.get('Dólar Blue', {}).get('compra', 'N/A') }}</span>
+                    </div>
+                    <div class="rate-column">
+                        <span class="label">Venta</span>
+                        <span class="value" data-tipo="Dólar Blue">${{ cotizaciones.get('Dólar Blue', {}).get('venta', 'N/A') }}</span>
+                    </div>
+                </div>
+                <div class="update-time">
+                    Actualizado: {{ ultima_actualizacion }}
+                </div>
+            </div>
+
+            <!-- Dólar Oficial -->
+            <div class="card">
+                <h2>DÓLAR OFICIAL</h2>
+                <div class="rates">
+                    <div class="rate-column">
+                        <span class="label">Compra</span>
+                        <span class="value" data-tipo="Dólar Oficial">${{ cotizaciones.get('Dólar Oficial', {}).get('compra', 'N/A') }}</span>
+                    </div>
+                    <div class="rate-column">
+                        <span class="label">Venta</span>
+                        <span class="value" data-tipo="Dólar Oficial">${{ cotizaciones.get('Dólar Oficial', {}).get('venta', 'N/A') }}</span>
+                    </div>
+                </div>
+                <div class="update-time">
+                    Actualizado: {{ ultima_actualizacion }}
+                </div>
+            </div>
+
+            <!-- Dólar MEP -->
+            <div class="card">
+                <h2>DÓLAR MEP</h2>
+                <div class="rates">
+                    <div class="rate-column">
+                        <span class="label">Compra</span>
+                        <span class="value" data-tipo="Dólar MEP/Bolsa">${{ cotizaciones.get('Dólar MEP/Bolsa', {}).get('compra', 'N/A') }}</span>
+                    </div>
+                    <div class="rate-column">
+                        <span class="label">Venta</span>
+                        <span class="value" data-tipo="Dólar MEP/Bolsa">${{ cotizaciones.get('Dólar MEP/Bolsa', {}).get('venta', 'N/A') }}</span>
+                    </div>
+                </div>
+                <div class="update-time">
+                    Actualizado: {{ ultima_actualizacion }}
+                </div>
+            </div>
+
+            <!-- Dólar CCL -->
+            <div class="card">
+                <h2>DÓLAR CCL</h2>
+                <div class="rates">
+                    <div class="rate-column">
+                        <span class="label">Compra</span>
+                        <span class="value" data-tipo="Contado con liqui">${{ cotizaciones.get('Contado con liqui', {}).get('compra', 'N/A') }}</span>
+                    </div>
+                    <div class="rate-column">
+                        <span class="label">Venta</span>
+                        <span class="value" data-tipo="Contado con liqui">${{ cotizaciones.get('Contado con liqui', {}).get('venta', 'N/A') }}</span>
+                    </div>
+                </div>
+                <div class="update-time">
+                    Actualizado: {{ ultima_actualizacion }}
+                </div>
+            </div>
+
+            <!-- Dólar Cripto -->
+            <div class="card">
+                <h2>DÓLAR CRIPTO</h2>
+                <div class="rates">
+                    <div class="rate-column">
+                        <span class="label">Compra</span>
+                        <span class="value" data-tipo="Dólar cripto">${{ cotizaciones.get('Dólar cripto', {}).get('compra', 'N/A') }}</span>
+                    </div>
+                    <div class="rate-column">
+                        <span class="label">Venta</span>
+                        <span class="value" data-tipo="Dólar cripto">${{ cotizaciones.get('Dólar cripto', {}).get('venta', 'N/A') }}</span>
+                    </div>
+                </div>
+                <div class="update-time">
+                    Actualizado: {{ ultima_actualizacion }}
+                </div>
+            </div>
+
+            <!-- Dólar Tarjeta -->
+            <div class="card">
+                <h2>DÓLAR TARJETA</h2>
+                <div class="rates">
+                    <div class="rate-column">
+                        <span class="label">Compra</span>
+                        <span class="value">N/A</span>
+                    </div>
+                    <div class="rate-column">
+                        <span class="label">Venta</span>
+                        <span class="value" data-tipo="Dólar Tarjeta">${{ cotizaciones.get('Dólar Tarjeta', {}).get('venta', 'N/A') }}</span>
+                    </div>
+                </div>
+                <div class="update-time">
+                    Actualizado: {{ ultima_actualizacion }}
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        function actualizarDatos() {
-            fetch('/?ajax=1&t=' + Date.now())
+        function actualizarCotizaciones() {
+            fetch('/get_cotizaciones')
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('compra').textContent = '$' + data.compra;
-                    document.getElementById('venta').textContent = '$' + data.venta;
-                    document.getElementById('fecha').textContent = 'Última actualización: ' + data.fecha;
+                    Object.entries(data.cotizaciones).forEach(([tipo, valores]) => {
+                        const compraElement = document.querySelector(`[data-tipo="${tipo}"] .compra-valor`);
+                        const ventaElement = document.querySelector(`[data-tipo="${tipo}"] .venta-valor`);
+                        if (compraElement) compraElement.textContent = `$${valores.compra}`;
+                        if (ventaElement) ventaElement.textContent = `$${valores.venta}`;
+                    });
+
+                    document.querySelectorAll('.update-time').forEach(el => {
+                        el.textContent = `Actualizado: ${data.ultima_actualizacion}`;
+                    });
                 })
                 .catch(error => console.error('Error:', error));
         }
 
-        // Actualizar cada 60 segundos
-        setInterval(actualizarDatos, 60000);
+        // Actualizar cada 1 minuto
+        setInterval(actualizarCotizaciones, 60000);
     </script>
-</head>
-<body>
-    <div class="container">
-        <h1>Cotización del Dólar Blue</h1>
-        <div class="rate">
-            <span class="label">Compra:</span> 
-            <span id="compra">${{ compra }}</span>
-        </div>
-        <div class="rate">
-            <span class="label">Venta:</span> 
-            <span id="venta">${{ venta }}</span>
-        </div>
-        <div class="fecha" id="fecha">
-            Última actualización: {{ fecha }}
-        </div>
-    </div>
 </body>
 </html>
