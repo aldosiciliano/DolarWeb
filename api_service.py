@@ -9,10 +9,9 @@ def get_dolar_blue():
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
             
-            # Diccionario para almacenar las cotizaciones
+            
             dollar_quotes = {}
             
-            # Lista de tipos de dólar que queremos obtener
             tipos_dolar = {
                 "Dólar Blue": ["Dólar Blue", "dólar blue"],
                 "Dólar Oficial": ["Dólar Oficial", "dólar oficial"],
@@ -28,9 +27,7 @@ def get_dolar_blue():
                 titulo_elem = bloque.find("a", class_="title")
                 if titulo_elem:
                     titulo = titulo_elem.text.strip()
-                    print(f"Título encontrado: {titulo}")
                     
-                    # Identificar el tipo de dólar
                     tipo_encontrado = None
                     for tipo_key, alternativas in tipos_dolar.items():
                         if any(alt.lower() in titulo.lower() for alt in alternativas):
@@ -41,7 +38,6 @@ def get_dolar_blue():
                             break
                     
                     if tipo_encontrado:
-                        # Extraer valores de compra y venta
                         compra_elem = bloque.find("div", class_="compra")
                         venta_elem = bloque.find("div", class_="venta")
                         
@@ -58,14 +54,12 @@ def get_dolar_blue():
                             if venta_val:
                                 venta = venta_val.text.strip()
                         
-                        # Guardar en el diccionario
                         dollar_quotes[tipo_encontrado] = {
                             'Compra': compra,
                             'Venta': venta
                         }
             
-            # Debug: imprimir cotizaciones encontradas
-            print("Cotizaciones encontradas:", dollar_quotes)
+           
             
             return {
                 'dollar_quotes': dollar_quotes,
