@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
+import pytz
+from datetime import timedelta
 
 def get_dolar_blue():
     url = "https://dolarhoy.com/"
@@ -8,7 +10,6 @@ def get_dolar_blue():
         response = requests.get(url)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
-            
             
             dollar_quotes = {}
             
@@ -32,7 +33,6 @@ def get_dolar_blue():
                     for tipo_key, alternativas in tipos_dolar.items():
                         if any(alt.lower() in titulo.lower() for alt in alternativas):
                             tipo_encontrado = tipo_key
-                            # Si encontramos "Contado con Liqui", lo mapeamos a "Dólar CCL"
                             if "contado con liqui" in titulo.lower():
                                 tipo_encontrado = "Dólar CCL"
                             break
@@ -58,12 +58,17 @@ def get_dolar_blue():
                             'Compra': compra,
                             'Venta': venta
                         }
+            utc_now = datetime.now(pytz.UTC)
             
-           
+            # Convertir a hora de Argentina (UTC-3)
+            argentina_tz = pytz.timezone('America/Argentina/Buenos_Aires')
+            hora_argentina = utc_now.astimezone(argentina_tz)
+            
+            formatted_time = hora_argentina.strftime('%d/%m/%y %I:%M %p')
             
             return {
                 'dollar_quotes': dollar_quotes,
-                'last_updated': datetime.now().strftime('%d/%m/%y %I:%M %p')
+                'last_updated': formatted_time
             }
         return None
     except Exception as e:
