@@ -15,11 +15,23 @@
                 <div class="rates">
                     <div class="rate-column">
                         <span class="label">Compra</span>
-                        <span class="value" data-tipo="Dólar Blue">${{ cotizaciones.get('Dólar Blue', {}).get('compra', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar Blue' in cotizaciones %}
+                                ${{ cotizaciones['Dólar Blue']['compra'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                     <div class="rate-column">
                         <span class="label">Venta</span>
-                        <span class="value" data-tipo="Dólar Blue">${{ cotizaciones.get('Dólar Blue', {}).get('venta', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar Blue' in cotizaciones %}
+                                ${{ cotizaciones['Dólar Blue']['venta'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                 </div>
                 <div class="update-time">
@@ -33,11 +45,23 @@
                 <div class="rates">
                     <div class="rate-column">
                         <span class="label">Compra</span>
-                        <span class="value" data-tipo="Dólar Oficial">${{ cotizaciones.get('Dólar Oficial', {}).get('compra', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar Oficial' in cotizaciones %}
+                                ${{ cotizaciones['Dólar Oficial']['compra'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                     <div class="rate-column">
                         <span class="label">Venta</span>
-                        <span class="value" data-tipo="Dólar Oficial">${{ cotizaciones.get('Dólar Oficial', {}).get('venta', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar Oficial' in cotizaciones %}
+                                ${{ cotizaciones['Dólar Oficial']['venta'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                 </div>
                 <div class="update-time">
@@ -51,11 +75,23 @@
                 <div class="rates">
                     <div class="rate-column">
                         <span class="label">Compra</span>
-                        <span class="value" data-tipo="Dólar MEP/Bolsa">${{ cotizaciones.get('Dólar MEP/Bolsa', {}).get('compra', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar MEP' in cotizaciones %}
+                                ${{ cotizaciones['Dólar MEP']['compra'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                     <div class="rate-column">
                         <span class="label">Venta</span>
-                        <span class="value" data-tipo="Dólar MEP/Bolsa">${{ cotizaciones.get('Dólar MEP/Bolsa', {}).get('venta', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar MEP' in cotizaciones %}
+                                ${{ cotizaciones['Dólar MEP']['venta'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                 </div>
                 <div class="update-time">
@@ -69,11 +105,23 @@
                 <div class="rates">
                     <div class="rate-column">
                         <span class="label">Compra</span>
-                        <span class="value" data-tipo="Contado con liqui">${{ cotizaciones.get('Contado con liqui', {}).get('compra', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar CCL' in cotizaciones %}
+                                ${{ cotizaciones['Dólar CCL']['compra'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                     <div class="rate-column">
                         <span class="label">Venta</span>
-                        <span class="value" data-tipo="Contado con liqui">${{ cotizaciones.get('Contado con liqui', {}).get('venta', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar CCL' in cotizaciones %}
+                                ${{ cotizaciones['Dólar CCL']['venta'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                 </div>
                 <div class="update-time">
@@ -87,11 +135,23 @@
                 <div class="rates">
                     <div class="rate-column">
                         <span class="label">Compra</span>
-                        <span class="value" data-tipo="Dólar cripto">${{ cotizaciones.get('Dólar cripto', {}).get('compra', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar Cripto' in cotizaciones %}
+                                ${{ cotizaciones['Dólar Cripto']['compra'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                     <div class="rate-column">
                         <span class="label">Venta</span>
-                        <span class="value" data-tipo="Dólar cripto">${{ cotizaciones.get('Dólar cripto', {}).get('venta', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar Cripto' in cotizaciones %}
+                                ${{ cotizaciones['Dólar Cripto']['venta'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                 </div>
                 <div class="update-time">
@@ -105,11 +165,23 @@
                 <div class="rates">
                     <div class="rate-column">
                         <span class="label">Compra</span>
-                        <span class="value">N/A</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar Tarjeta' in cotizaciones %}
+                                ${{ cotizaciones['Dólar Tarjeta']['compra'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                     <div class="rate-column">
                         <span class="label">Venta</span>
-                        <span class="value" data-tipo="Dólar Tarjeta">${{ cotizaciones.get('Dólar Tarjeta', {}).get('venta', 'N/A') }}</span>
+                        <span class="value">
+                            {% if cotizaciones and 'Dólar Tarjeta' in cotizaciones %}
+                                ${{ cotizaciones['Dólar Tarjeta']['venta'] }}
+                            {% else %}
+                                $N/A
+                            {% endif %}
+                        </span>
                     </div>
                 </div>
                 <div class="update-time">
@@ -118,26 +190,30 @@
             </div>
         </div>
     </div>
+
     <script>
         function actualizarCotizaciones() {
             fetch('/get_cotizaciones')
                 .then(response => response.json())
                 .then(data => {
-                    Object.entries(data.cotizaciones).forEach(([tipo, valores]) => {
-                        const compraElement = document.querySelector(`[data-tipo="${tipo}"] .compra-valor`);
-                        const ventaElement = document.querySelector(`[data-tipo="${tipo}"] .venta-valor`);
-                        if (compraElement) compraElement.textContent = `$${valores.compra}`;
-                        if (ventaElement) ventaElement.textContent = `$${valores.venta}`;
-                    });
-
-                    document.querySelectorAll('.update-time').forEach(el => {
-                        el.textContent = `Actualizado: ${data.ultima_actualizacion}`;
-                    });
+                    if (data.cotizaciones) {
+                        Object.entries(data.cotizaciones).forEach(([tipo, valores]) => {
+                            const card = document.querySelector(`.card h2:contains('${tipo.toUpperCase()}')`).closest('.card');
+                            if (card) {
+                                card.querySelector('.compra .value').textContent = `$${valores.compra}`;
+                                card.querySelector('.venta .value').textContent = `$${valores.venta}`;
+                            }
+                        });
+                        
+                        document.querySelectorAll('.update-time').forEach(el => {
+                            el.textContent = `Actualizado: ${data.ultima_actualizacion}`;
+                        });
+                    }
                 })
                 .catch(error => console.error('Error:', error));
         }
 
-        // Actualizar cada 1 minuto
+        // Actualizar cada minuto
         setInterval(actualizarCotizaciones, 60000);
     </script>
 </body>
