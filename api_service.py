@@ -60,17 +60,14 @@ def get_dolar_blue():
                             'Venta': venta
                         }
             
-            # Obtener zona horaria desde variable de entorno o usar valor por defecto
-            timezone = os.getenv('APP_TIMEZONE', 'America/Argentina/Buenos_Aires')
             
-            # Obtener hora UTC
+            timezone = os.getenv('APP_TIMEZONE', 'America/Argentina/Buenos_Aires')
+
             utc_now = datetime.now(pytz.UTC)
             
-            # Convertir a hora de Argentina usando la variable de entorno
             argentina_tz = pytz.timezone(timezone)
             hora_argentina = utc_now.astimezone(argentina_tz)
             
-            # Formatear la hora
             formatted_time = hora_argentina.strftime('%d/%m/%y %I:%M %p')
             
             return {
