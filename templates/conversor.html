@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <title>Conversor de Divisas</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-item">Inicio</a>
+            <a href="/conversor" class="nav-item active">Conversor</a>
+            <a href="/cotizaciones" class="nav-item">Cotizaciones</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="converter-card">
+            <h2>Conversor de Divisas</h2>
+            <form class="converter-form" id="converterForm">
+                <div class="input-group">
+                    <label>Monto a convertir</label>
+                    <div class="amount-input">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" id="amount" value="1000">
+                    </div>
+                </div>
+                
+                <div class="currency-group">
+                    <div class="select-group">
+                        <label>De</label>
+                        <select id="fromCurrency">
+                            <option value="ARS">Peso Argentino (ARS)</option>
+                        </select>
+                    </div>
+                    
+                    <button type="button" class="swap-button" id="swapButton">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 16L3 12M3 12L7 8M3 12H21M17 8L21 12M21 12L17 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+
+                    <div class="select-group">
+                        <label>A</label>
+                        <select id="toCurrency">
+                            <option value="BLUE">Dólar Blue</option>
+                            <option value="OFICIAL">Dólar Oficial</option>
+                            <option value="CRYPTO">Dólar Crypto</option>
+                            <option value="TARJETA">Dólar Tarjeta</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="result" id="result">
+                    <div class="result-label">Resultado:</div>
+                    <div class="result-amount" id="resultAmount">$1000 ARS = $0.83 USD (Blue)</div>
+                    <div class="result-rate" id="resultRate">1 USD = 1215 ARS</div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/converter.js') }}"></script>
+</body>
+</html> 

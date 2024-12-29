@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizaciones de Dólar</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='moneda.png') }}">
-
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <title>Cotizaciones Dólar</title>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-item active">Inicio</a>
+            <a href="/conversor" class="nav-item">Conversor</a>
+            <a href="/cotizaciones" class="nav-item">Cotizaciones</a>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="grid-container">
-            <!-- Dólar Blue -->
+        <div class="card-grid">
             <div class="card">
                 <h2>DÓLAR BLUE</h2>
                 <div class="rates">
@@ -19,9 +25,9 @@
                         <span class="label">Compra</span>
                         <span class="value">
                             {% if cotizaciones and 'Dólar Blue' in cotizaciones %}
-                                ${{ cotizaciones['Dólar Blue']['compra'] }}
+                            ${{ cotizaciones['Dólar Blue']['Compra'] }}
                             {% else %}
-                                $N/A
+                            $N/A
                             {% endif %}
                         </span>
                     </div>
@@ -29,19 +35,16 @@
                         <span class="label">Venta</span>
                         <span class="value">
                             {% if cotizaciones and 'Dólar Blue' in cotizaciones %}
-                                ${{ cotizaciones['Dólar Blue']['venta'] }}
+                            ${{ cotizaciones['Dólar Blue']['Venta'] }}
                             {% else %}
-                                $N/A
+                            $N/A
                             {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="update-time">
-                    Actualizado: {{ ultima_actualizacion }}
-                </div>
+                <span class="update-time">Actualizado: {{ ultima_actualizacion }}</span>
             </div>
 
-            <!-- Dólar Oficial -->
             <div class="card">
                 <h2>DÓLAR OFICIAL</h2>
                 <div class="rates">
@@ -49,9 +52,9 @@
                         <span class="label">Compra</span>
                         <span class="value">
                             {% if cotizaciones and 'Dólar Oficial' in cotizaciones %}
-                                ${{ cotizaciones['Dólar Oficial']['compra'] }}
+                            ${{ cotizaciones['Dólar Oficial']['Compra'] }}
                             {% else %}
-                                $N/A
+                            $N/A
                             {% endif %}
                         </span>
                     </div>
@@ -59,164 +62,16 @@
                         <span class="label">Venta</span>
                         <span class="value">
                             {% if cotizaciones and 'Dólar Oficial' in cotizaciones %}
-                                ${{ cotizaciones['Dólar Oficial']['venta'] }}
+                            ${{ cotizaciones['Dólar Oficial']['Venta'] }}
                             {% else %}
-                                $N/A
+                            $N/A
                             {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="update-time">
-                    Actualizado: {{ ultima_actualizacion }}
-                </div>
-            </div>
-
-            <!-- Dólar MEP -->
-            <div class="card">
-                <h2>DÓLAR MEP</h2>
-                <div class="rates">
-                    <div class="rate-column">
-                        <span class="label">Compra</span>
-                        <span class="value">
-                            {% if cotizaciones and 'Dólar MEP' in cotizaciones %}
-                                ${{ cotizaciones['Dólar MEP']['compra'] }}
-                            {% else %}
-                                $N/A
-                            {% endif %}
-                        </span>
-                    </div>
-                    <div class="rate-column">
-                        <span class="label">Venta</span>
-                        <span class="value">
-                            {% if cotizaciones and 'Dólar MEP' in cotizaciones %}
-                                ${{ cotizaciones['Dólar MEP']['venta'] }}
-                            {% else %}
-                                $N/A
-                            {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="update-time">
-                    Actualizado: {{ ultima_actualizacion }}
-                </div>
-            </div>
-
-            <!-- Dólar CCL -->
-            <div class="card">
-                <h2>DÓLAR CCL</h2>
-                <div class="rates">
-                    <div class="rate-column">
-                        <span class="label">Compra</span>
-                        <span class="value">
-                            {% if cotizaciones and 'Dólar CCL' in cotizaciones %}
-                                ${{ cotizaciones['Dólar CCL']['compra'] }}
-                            {% else %}
-                                $N/A
-                            {% endif %}
-                        </span>
-                    </div>
-                    <div class="rate-column">
-                        <span class="label">Venta</span>
-                        <span class="value">
-                            {% if cotizaciones and 'Dólar CCL' in cotizaciones %}
-                                ${{ cotizaciones['Dólar CCL']['venta'] }}
-                            {% else %}
-                                $N/A
-                            {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="update-time">
-                    Actualizado: {{ ultima_actualizacion }}
-                </div>
-            </div>
-
-            <!-- Dólar Cripto -->
-            <div class="card">
-                <h2>DÓLAR CRIPTO</h2>
-                <div class="rates">
-                    <div class="rate-column">
-                        <span class="label">Compra</span>
-                        <span class="value">
-                            {% if cotizaciones and 'Dólar Cripto' in cotizaciones %}
-                                ${{ cotizaciones['Dólar Cripto']['compra'] }}
-                            {% else %}
-                                $N/A
-                            {% endif %}
-                        </span>
-                    </div>
-                    <div class="rate-column">
-                        <span class="label">Venta</span>
-                        <span class="value">
-                            {% if cotizaciones and 'Dólar Cripto' in cotizaciones %}
-                                ${{ cotizaciones['Dólar Cripto']['venta'] }}
-                            {% else %}
-                                $N/A
-                            {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="update-time">
-                    Actualizado: {{ ultima_actualizacion }}
-                </div>
-            </div>
-
-            <!-- Dólar Tarjeta -->
-            <div class="card">
-                <h2>DÓLAR TARJETA</h2>
-                <div class="rates">
-                    <div class="rate-column">
-                        <span class="label">Compra</span>
-                        <span class="value">
-                            {% if cotizaciones and 'Dólar Tarjeta' in cotizaciones %}
-                                ${{ cotizaciones['Dólar Tarjeta']['compra'] }}
-                            {% else %}
-                                $N/A
-                            {% endif %}
-                        </span>
-                    </div>
-                    <div class="rate-column">
-                        <span class="label">Venta</span>
-                        <span class="value">
-                            {% if cotizaciones and 'Dólar Tarjeta' in cotizaciones %}
-                                ${{ cotizaciones['Dólar Tarjeta']['venta'] }}
-                            {% else %}
-                                $N/A
-                            {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="update-time">
-                    Actualizado: {{ ultima_actualizacion }}
-                </div>
+                <span class="update-time">Actualizado: {{ ultima_actualizacion }}</span>
             </div>
         </div>
     </div>
-
-    <script>
-        function actualizarCotizaciones() {
-            fetch('/get_cotizaciones')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.cotizaciones) {
-                        Object.entries(data.cotizaciones).forEach(([tipo, valores]) => {
-                            const card = document.querySelector(`.card h2:contains('${tipo.toUpperCase()}')`).closest('.card');
-                            if (card) {
-                                card.querySelector('.compra .value').textContent = `$${valores.compra}`;
-                                card.querySelector('.venta .value').textContent = `$${valores.venta}`;
-                            }
-                        });
-                        
-                        document.querySelectorAll('.update-time').forEach(el => {
-                            el.textContent = `Actualizado: ${data.ultima_actualizacion}`;
-                        });
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        // Actualizar cada minuto
-        setInterval(actualizarCotizaciones, 60000);
-    </script>
 </body>
 </html>

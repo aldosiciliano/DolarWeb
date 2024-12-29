@@ -12,7 +12,9 @@ def get_dolar_blue():
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
             
+            
             dollar_quotes = {}
+            
             
             tipos_dolar = {
                 "Dólar Blue": ["Dólar Blue", "dólar blue"],
@@ -30,15 +32,15 @@ def get_dolar_blue():
                 if titulo_elem:
                     titulo = titulo_elem.text.strip()
                     
+                    # Identificar el tipo de dólar
                     tipo_encontrado = None
                     for tipo_key, alternativas in tipos_dolar.items():
                         if any(alt.lower() in titulo.lower() for alt in alternativas):
                             tipo_encontrado = tipo_key
-                            if "contado con liqui" in titulo.lower():
-                                tipo_encontrado = "Dólar CCL"
                             break
                     
                     if tipo_encontrado:
+                        # Extraer valores de compra y venta
                         compra_elem = bloque.find("div", class_="compra")
                         venta_elem = bloque.find("div", class_="venta")
                         
@@ -48,31 +50,28 @@ def get_dolar_blue():
                         if compra_elem:
                             compra_val = compra_elem.find("div", class_="val")
                             if compra_val:
-                                compra = compra_val.text.strip()
+                                # Eliminar el símbolo $ y espacios
+                                compra = compra_val.text.strip().replace('$', '').strip()
                         
                         if venta_elem:
                             venta_val = venta_elem.find("div", class_="val")
                             if venta_val:
-                                venta = venta_val.text.strip()
+                                # Eliminar el símbolo $ y espacios
+                                venta = venta_val.text.strip().replace('$', '').strip()
                         
+                        # Guardar en el diccionario
                         dollar_quotes[tipo_encontrado] = {
                             'Compra': compra,
                             'Venta': venta
                         }
             
-            
-            timezone = os.getenv('APP_TIMEZONE', 'America/Argentina/Buenos_Aires')
-
-            utc_now = datetime.now(pytz.UTC)
-            
-            argentina_tz = pytz.timezone(timezone)
-            hora_argentina = utc_now.astimezone(argentina_tz)
-            
-            formatted_time = hora_argentina.strftime('%d/%m/%y %I:%M %p')
+            # Configurar zona horaria de Argentina
+            argentina_tz = pytz.timezone('America/Argentina/Buenos_Aires')
+            hora_argentina = datetime.now(argentina_tz)
             
             return {
                 'dollar_quotes': dollar_quotes,
-                'last_updated': formatted_time
+                'last_updated': hora_argentina.strftime('%d/%m/%y %I:%M %p')
             }
         return None
     except Exception as e:
