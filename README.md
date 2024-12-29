@@ -36,10 +36,6 @@ Este proyecto es una aplicación web que muestra en tiempo real las diferentes c
 - Requests (Para llamadas a la API)
 
 ## Instalación 📦
-
-1. Clona el repositorio
-2. Crea un entorno virtual e instala las dependencias:
-## Instalación 📦
     1. Clona el repositorio
     2. Crea un entorno virtual e instala las dependencias: requirements.txt
     3. Ejecuta la aplicación con flask
