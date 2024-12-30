@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, url_for
 from api_service import get_dolar_blue
 
 app = Flask(__name__, static_folder='static')

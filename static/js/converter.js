@@ -7,27 +7,85 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultAmount = document.getElementById('resultAmount');
     const resultRate = document.getElementById('resultRate');
 
-    // Tasas de cambio actualizadas para cada tipo de dólar
-    const rates = {
-        'ARS_BLUE': 1/1215,
-        'ARS_OFICIAL': 1/1051,
-        'ARS_CRYPTO': 1/1200,  // Ejemplo
-        'ARS_TARJETA': 1/1050  // Ejemplo
+    // Función para obtener las cotizaciones actuales
+    async function getCotizaciones() {
+        try {
+            const response = await fetch('/api/cotizaciones');
+            const data = await response.json();
+            return data.dollar_quotes;
+        } catch (error) {
+            console.error('Error al obtener cotizaciones:', error);
+            return null;
+        }
+    }
+
+    // Función para calcular las tasas basadas en las cotizaciones
+    function calculateRates(cotizaciones) {
+        const rates = {};
+        const dollarTypes = {
+            'BLUE': 'Dólar Blue',
+            'OFICIAL': 'Dólar Oficial',
+            'CRYPTO': 'Dólar Cripto',
+            'TARJETA': 'Dólar Tarjeta',
+            'MEP': 'Dólar MEP',
+            'CCL': 'Dólar CCL'
+        };
+
+        // Crear tasas para ARS a USD y viceversa
+        for (const [key, name] of Object.entries(dollarTypes)) {
+            if (cotizaciones[name]) {
+                const venta = parseFloat(cotizaciones[name].Venta);
+                rates[`ARS_${key}`] = 1/venta;
+                rates[`${key}_ARS`] = venta;
+            }
+        }
+
+        return rates;
+    }
+
+    const currencyNames = {
+        'ARS': 'Peso Argentino',
+        'BLUE': 'Dólar Blue',
+        'OFICIAL': 'Dólar Oficial',
+        'CRYPTO': 'Dólar Cripto',
+        'TARJETA': 'Dólar Tarjeta',
+        'MEP': 'Dólar MEP',
+        'CCL': 'Dólar CCL'
     };
 
-    // Función para actualizar el resultado
-    function updateResult() {
+    function initializeSelectors() {
+        fromCurrency.innerHTML = '';
+        toCurrency.innerHTML = '';
+
+        const arsOption = new Option(currencyNames['ARS'], 'ARS');
+        fromCurrency.add(arsOption);
+
+        ['BLUE', 'OFICIAL', 'CRYPTO', 'TARJETA', 'MEP', 'CCL'].forEach(currency => {
+            const option = new Option(currencyNames[currency], currency);
+            toCurrency.add(option);
+        });
+
+        fromCurrency.value = 'ARS';
+        toCurrency.value = 'BLUE';
+    }
+
+    async function updateResult() {
         const fromValue = fromCurrency.value;
         const toValue = toCurrency.value;
         const amountValue = parseFloat(amount.value);
 
+        const cotizaciones = await getCotizaciones();
+        if (!cotizaciones) return;
+
+        const rates = calculateRates(cotizaciones);
         const rateKey = `${fromValue}_${toValue}`;
         const rate = rates[rateKey];
         
-        const result = amountValue * rate;
-        const dollarType = toValue.charAt(0).toUpperCase() + toValue.slice(1).toLowerCase();
-        resultAmount.textContent = `$${amountValue} ${fromValue} = $${result.toFixed(2)} USD (${dollarType})`;
-        resultRate.textContent = `1 USD = ${(1/rate).toFixed(2)} ${fromValue}`;
+        if (rate) {
+            const result = amountValue * rate;
+            resultAmount.textContent = `1 ${currencyNames[toValue]} = $${(1/rate).toFixed(2)} Peso Argentino`;
+            resultRate.textContent = '';
+        }
     }
 
     // Event listeners
@@ -35,14 +93,22 @@ document.addEventListener('DOMContentLoaded', function() {
     fromCurrency.addEventListener('change', updateResult);
     toCurrency.addEventListener('change', updateResult);
 
-    // Función para intercambiar monedas
-    swapButton.addEventListener('click', function() {
-        const tempValue = fromCurrency.value;
-        fromCurrency.value = toCurrency.value;
-        toCurrency.value = tempValue;
+    swapButton.addEventListener('click', () => {
+        const fromValue = fromCurrency.value;
+        const toValue = toCurrency.value;
+
+        fromCurrency.innerHTML = '';
+        const newFromOption = new Option(currencyNames[toValue], toValue);
+        fromCurrency.add(newFromOption);
+
+        toCurrency.innerHTML = '';
+        const newToOption = new Option(currencyNames[fromValue], fromValue);
+        toCurrency.add(newToOption);
+
         updateResult();
     });
 
     // Inicializar
+    initializeSelectors();
     updateResult();
-}); 
+});

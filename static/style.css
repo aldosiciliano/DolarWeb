@@ -295,3 +295,69 @@ select {
     color: #1e293b;
     font-weight: bold;
 }
+
+.quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.quote-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.quote-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.quote-card h3 {
+    color: #1e293b;
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+}
+
+.quote-values {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+}
+
+.quote-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.value {
+    color: #10b981;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.quote-card:hover .value {
+    color: #059669;
+}
+
+.update-time {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    margin-top: 1rem;
+}
