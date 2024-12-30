@@ -1,24 +1,40 @@
 # Cotizaciones de Dólar en Argentina 💱
-Este proyecto es una aplicación web que muestra en tiempo real las diferentes cotizaciones del dólar en Argentina. La aplicación se actualiza automáticamente cada minuto para mantener los datos actualizados.
+
+Este proyecto es una aplicación web que muestra en tiempo real las diferentes cotizaciones del dólar en Argentina y permite realizar conversiones entre diferentes tipos de dólar. La aplicación se actualiza automáticamente cada minuto para mantener los datos actualizados.
+
 ## Características 🌟
-- Muestra 6 tipos diferentes de cotización del dólar:
- - Dólar Blue
- - Dólar Oficial
- - Dólar MEP
- - Dólar CCL
- - Dólar Cripto
- - Dólar Tarjeta
+
+### Página Principal
+- Muestra las cotizaciones principales del dólar:
+  - Dólar Blue
+  - Dólar Oficial
 - Actualización automática cada minuto
- Diseño responsive
- Manejo de errores y reintentos en la API
- Interfaz limpia y fácil de usar
+- Visualización clara de valores de compra y venta
+
+### Conversor de Divisas
+- Permite convertir entre:
+  - Peso Argentino (ARS)
+  - Dólar Blue
+  - Dólar Oficial
+  - Dólar Cripto
+  - Dólar Tarjeta
+- Cálculos en tiempo real
+- Muestra tasa de cambio actual
+
+### Características Generales
+- Diseño responsive
+- Interfaz limpia y fácil de usar
+- Navegación intuitiva entre secciones
+
 ## Tecnologías Utilizadas 🛠️
+
 - Python 3.x
 - Flask (Framework web)
 - HTML5
 - CSS3
 - JavaScript
 - Requests (Para llamadas a la API)
+
 ## Instalación 📦
     1. Clona el repositorio
     2. Crea un entorno virtual e instala las dependencias: requirements.txt
@@ -31,7 +47,9 @@ La aplicación utiliza una API externa para obtener las cotizaciones. La URL de 
 
 ## Uso 💻
 
-Una vez iniciada la aplicación, las cotizaciones se mostrarán automáticamente y se actualizarán cada minuto. No se requiere ninguna acción adicional por parte del usuario.
+1. **Página Principal**: Muestra automáticamente las cotizaciones actualizadas del dólar blue y oficial.
+2. **Conversor**: Permite realizar conversiones entre pesos argentinos y diferentes tipos de dólar.
+3. **Cotizaciones**:  Muestra la información detallada de todas las cotizaciones.
 
 ## Contribuir 🤝
 
